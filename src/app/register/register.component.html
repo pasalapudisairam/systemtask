@@ -1,24 +1,69 @@
-<div style="width:300px;margin:auto">
-  <form #signupform="ngForm" (ngSubmit)="submitData(signupform)">
 
-    <input type="text" placeholder="Name" [(ngModel)]="user.name" #Firstname1="ngModel" name="fn" pattern="^[A-Za-z0-9 ]{3,15}$">
-    <br>
-    <div *ngIf="Firstname1.errors && user.name" id="errmsg">First Name Should Contain atleast 3-15 Characters</div>
-    <br>
-    <input type="text" placeholder="Role" [(ngModel)]="user.role" name="role" #role1="ngModel">
-    <br>
-    <br>
-    <input type="date" placeholder="Date of Birth" [(ngModel)]="user.dob" name="dob" #dob1="ngModel">
-    <br>
-    <br>
-    <input type="password" placeholder="Password" [(ngModel)]="user.password" min="0" maxlength="10" minlength="10"
-      required name="Phone" #Phone1="ngModel" pattern="[A-za-z0-9]{4,}">
-    <br>
-    <br>
-    <textarea placeholder="Address" [(ngModel)]="user.address" name="address" #address1="ngModel"></textarea>
-    <br>
-    <br>
-    <button type="submit" [disabled]="!signupform.form.valid">submit</button>
-  </form>
+<form [formGroup]="signupForm" (ngSubmit)="submitData()" class="container" style="padding: 10%">
+  <div *ngIf="signupForm.errors" class="alert alert-danger">Username and password is invalid</div>
+  <!--username input field -->
+  <div class="form-group">
+    <label for="username">Username</label>
+    <input
+      formControlName="name"
+      id="username"
+      type="text"
+      pattern="^[A-Za-z0-9 ]{3,15}$"
+      class="form-control">
+  </div>
+  <!-- error messages -->
+  <div *ngIf="uname.touched && uname.invalid" class="alert alert-danger">
+    <div *ngIf="uname.errors.required">Username is required</div>
+    <div *ngIf="uname.errors.minlength">Minimum {{uname.errors.minlength.requiredLength}} characters are required</div>
+    <div *ngIf="uname.errors.cannotContainSpace">Username should not contain any spaces</div>
+  </div>
 
-</div>
+  <!-- password input field-->
+  <div class="form-group">
+    <label for="password">Password</label>
+    <input
+      formControlName="password"
+      id="password"
+      type="password"
+      class="form-control">
+  </div>
+
+  <div *ngIf="pwd.touched && pwd.invalid" class="alert alert-danger">
+    <div *ngIf="pwd.errors.required">Password is required</div>
+    <div *ngIf="pwd.errors.minlength">Minimum {{pwd.errors.minlength.requiredLength}} characters are
+      required
+    </div>
+  </div>
+
+  <!--dob -->
+  <div class="form-group"> <!-- Date input -->
+    <label class="control-label" for="date">Date of Birth</label>
+    <input class="form-control" id="date" name="date" formControlName="dob" placeholder="DD/MM/YYY" type="text"/>
+  </div>
+  <!-- dob errors-->
+  <div *ngIf="dob.touched && dob.invalid" class="alert alert-danger">
+    <div *ngIf="dob.errors.required">date of birth is required</div>
+  </div>
+
+  <!-- address input field-->
+  <div class="form-group">
+    <label for="address">Address</label>
+    <textarea
+      formControlName="address"
+      id="address"
+      class="form-control">
+    </textarea>
+  </div>
+
+  <!--address errors-->
+  <div *ngIf="address.touched && address.invalid" class="alert alert-danger">
+    <div *ngIf="address.errors.required">Password is required</div>
+    <div *ngIf="address.errors.minlength">Minimum {{address.errors.minlength.requiredLength}} characters are
+      required
+    </div>
+  </div>
+
+  <button style="display: block;margin: auto" [disabled]="signupForm.invalid" class="btn btn-primary" type="submit">Sign
+    Up
+  </button>
+</form>

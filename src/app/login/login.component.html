@@ -1,9 +1,38 @@
-<div style="width:300px;margin:auto">
-  <input type="text" placeholder="Name" [(ngModel)]="user.name">
-  <br>
-  <br>
-  <input type="password" placeholder="Password" [(ngModel)]="user.password">
-  <br>
+<form [formGroup]="loginForm" (ngSubmit)="submitData()" class="container" style="padding: 10%">
+  <div *ngIf="loginForm.errors" class="alert alert-danger">Username and password is invalid</div>
+  <!--username input field -->
+  <div class="form-group">
+    <label for="username">Username</label>
+    <input
+      formControlName="name"
+      id="username"
+      type="text"
+      class="form-control">
+  </div>
+  <!-- error messages -->
+  <div *ngIf="uname.touched && uname.invalid" class="alert alert-danger">
+    <div *ngIf="uname.errors.required">Username is required</div>
+    <div *ngIf="uname.errors.minlength">Minimum {{uname.errors.minlength.requiredLength}} characters are required</div>
+    <div *ngIf="uname.errors.cannotContainSpace">Username should not contain any spaces</div>
+  </div>
 
-  <button (click)="submitData()">submit</button>
-</div>
+  <!-- password input field-->
+  <div class="form-group">
+    <label for="password">Password</label>
+    <input
+      formControlName="password"
+      id="password"
+      type="password"
+      class="form-control">
+  </div>
+
+  <div *ngIf="pwd.touched && pwd.invalid" class="alert alert-danger">
+    <div *ngIf="pwd.errors.required">Password is required</div>
+    <div *ngIf="pwd.errors.minlength">Minimum {{pwd.errors.minlength.requiredLength}} characters are
+      required
+    </div>
+  </div>
+
+  <button [disabled]="loginForm.invalid" class="btn btn-primary" type="submit" style="display: block;margin: auto">Login
+  </button>
+</form>
