@@ -1,0 +1,53 @@
+<div style="width:500px;margin:auto" *ngIf="view ==='forloop'">
+  <h4>Users</h4>
+  <div style="padding: 10px; margin:5px; box-shadow: 0px 0px 5px black;" *ngFor="let data of userdetails" (click)="userDetailed(data)">
+    <p *ngIf="data.name">{{data.name}}</p>
+  </div>
+</div>
+<div style="width:500px;margin:auto" *ngIf="view ==='detailed'">
+  <h4>User Detail</h4>
+  <div>
+    <span class="key">Name :</span>
+    <span>{{detailObj.name}}</span>
+  </div>
+  <div>
+    <span class="key">Role :</span>
+    <span>{{detailObj.role}}</span>
+  </div>
+  <div>
+    <span class="key">DOB :</span>
+    <span>{{detailObj.dob}}</span>
+  </div>
+  <div>
+    <span class="key">Address :</span>
+    <span>{{detailObj.address}}</span>
+  </div>
+  <div>
+    <span class="key">Image :</span>
+    <span><img [src]="detailObj.profileImage" width="50px;"></span>
+  </div>
+  <div>
+    <button (click)="delete()">Delete</button>
+    <button (click)="edit()">Edit</button>
+  </div>
+  <button (click)="back()">Back</button>
+</div>
+<div style="width:500px;margin:auto" *ngIf="view ==='edit'">
+  <h5>Edit</h5>
+  <input type="text" placeholder="Name" [(ngModel)]="useredit.name">
+  <br>
+  <br>
+  <input type="text" placeholder="Role" [(ngModel)]="useredit.role">
+  <br>
+  <br>
+  <input type="date" placeholder="Date of Birth" [(ngModel)]="useredit.dob">
+  <br>
+  <br>
+  <!-- <input type="password" placeholder="Password" [(ngModel)]="useredit.password">
+  <br>
+  <br> -->
+  <textarea placeholder="Address" [(ngModel)]="useredit.address"></textarea>
+  <br>
+  <br>
+  <button (click)="EditData()">submit</button>
+</div>

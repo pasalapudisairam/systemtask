@@ -1,0 +1,24 @@
+<div style="width:300px;margin:auto">
+  <form #signupform="ngForm" (ngSubmit)="submitData(signupform)">
+
+    <input type="text" placeholder="Name" [(ngModel)]="user.name" #Firstname1="ngModel" name="fn" pattern="^[A-Za-z0-9 ]{3,15}$">
+    <br>
+    <div *ngIf="Firstname1.errors && user.name" id="errmsg">First Name Should Contain atleast 3-15 Characters</div>
+    <br>
+    <input type="text" placeholder="Role" [(ngModel)]="user.role" name="role" #role1="ngModel">
+    <br>
+    <br>
+    <input type="date" placeholder="Date of Birth" [(ngModel)]="user.dob" name="dob" #dob1="ngModel">
+    <br>
+    <br>
+    <input type="password" placeholder="Password" [(ngModel)]="user.password" min="0" maxlength="10" minlength="10"
+      required name="Phone" #Phone1="ngModel" pattern="[A-za-z0-9]{4,}">
+    <br>
+    <br>
+    <textarea placeholder="Address" [(ngModel)]="user.address" name="address" #address1="ngModel"></textarea>
+    <br>
+    <br>
+    <button type="submit" [disabled]="!signupform.form.valid">submit</button>
+  </form>
+
+</div>
